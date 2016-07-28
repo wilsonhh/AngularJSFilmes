@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pessoas</title>
+
+    <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/pessoa.app.js"></script>
+    <script src="scripts/pessoa.controller.js"></script>
+    <script src="scripts/pessoa.directive.js"></script>
+    <script src="scripts/pessoa.factory.js"></script>
+    
+     
+</head>
+<body>
+<div class="container" >
+
+       <div class="table-responsive"  ng-controller="customersCtrl" >
+       
+       <form name="formulario" class="form-filmes" ng-submit="formulario.$valid && criarPessoa()" novalidate>
+                  
+            <h1>Adicionar Pessoa</h1>          
+            <div class="form-campo">
+                <label for="name" >Name</label>
+                <input type="text" id="name" name="name" ng-model="novaPessoa.name" required minlength=3 class="ng-dirty ng-invalid">
+            </div>
+            <div class="form-campo">
+                <label for="country">Country</label>
+                <select name="country" id="country" ng-model="novaPessoa.country"  class="form-control input-sm" required>
+			      <option ng-repeat="option in countries" value="{{option.countryName}}">{{option.countryName}}</option>
+			    </select>
+                
+           
+            </div>
+            <footer>
+               <button type="button" ng-click="limparPessoa()" >Limpar</button>
+                <button type="submit" ng-disabled="formulario.$invalid" >Salvar</button>
+                
+            </footer>
+        </form>
+       
+       <label>Name: <input ng-model="search.name" placeholder="Filter by Name"></label>
+       <label>Country: <input ng-model="search.country" placeholder="Filter by Country"></label>
+   			<table id="products-table" class="table table-hover table-bordered table-striped table-condensed">
+			<thead>
+				<tr class="success">
+					<th >ID </span></th>
+					<th >Name
+					<span  ng-click="sortBy('name')" class="sortorder"  ng-class="{reverse: reverse}"></span>
+					</th>
+					<th>Country
+					<span  ng-click="sortBy('country')" class="sortorder"  ng-class="{reverse: reverse}"></span>
+					</th>
+					<th>delete</th>
+					<th>Editar</th>
+				</tr>
+			</thead>
+			<tbody>
+				  <tr aw-pessoa="p" fn-remove="removerPessoa(p.id)" fn-editar="editarPessoa(p)"  ng-repeat="p in pessoas | filter:search:strict | orderBy:propertyName:reverse  | pagination: curPage * pageSize | limitTo: pageSize"></tr>
+			</tbody>
+		</table>
+	 <div class="pagination pagination-centered" ng-show="pessoas.length">
+<ul class="pagination-controle pagination">
+ <li>
+  <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+ ng-click="curPage=curPage-1"> &lt; PREV</button>
+ </li>
+ <li>
+ <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+ </li>
+ <li>
+ <button type="button" class="btn btn-primary"
+ ng-disabled="curPage >= pessoas.length/pageSize - 1"
+ ng-click="curPage = curPage+1">NEXT &gt;</button>
+ </li>
+</ul>
+</div>
+   		</div>
+</div>
+
+</body>
+</html>

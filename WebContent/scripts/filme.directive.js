@@ -1,8 +1,8 @@
-﻿angular.module("filmes").directive("awFilme", function () {
+﻿angular.module("filmes").directive("awFilme2", function () {
   return {
     restrict: "A",
     scope: {
-      filme: '=awFilme',
+      filme: '=awFilme2',
       fnFechar: '&'
     },
     templateUrl: "templates/filme.template.html",
